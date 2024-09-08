@@ -6,15 +6,15 @@ export function getSortedCharacterFieldsList(character, sortFieldNames) {
             value: character[fieldName]
         });
     }
-    const allCharacterKeys = Object.keys(character).sort();
-    for (let fieldName of allCharacterKeys) {
-        if (sortFieldNames.includes(fieldName)) {
-            continue;
+    const remainingKeys = [];
+    for (const key in character) {
+        if (!sortFieldNames.includes(key)) {
+            remainingKeys.push(key);
         }
-        result.push({
-            key: fieldName,
-            value: character[fieldName]
-        });
+    }
+    remainingKeys.sort();
+    for (const key of remainingKeys) {
+        result.push({ key, value: character[key] });
     }
     return result;
 }
